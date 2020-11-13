@@ -1,4 +1,5 @@
-import cv2,os
+import cv2
+import os
 
 directory = "crop_image"
 

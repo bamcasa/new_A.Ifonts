@@ -12,7 +12,6 @@ import os
 plt.style.use('dark_background')
 
 
-
 # # Read Input Image
 
 # In[3]:
@@ -50,7 +49,8 @@ for file in files:
     structuringElement = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 
     imgTopHat = cv2.morphologyEx(gray, cv2.MORPH_TOPHAT, structuringElement)
-    imgBlackHat = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, structuringElement)
+    imgBlackHat = cv2.morphologyEx(
+        gray, cv2.MORPH_BLACKHAT, structuringElement)
 
     imgGrayscalePlusTopHat = cv2.add(gray, imgTopHat)
     gray = cv2.subtract(imgGrayscalePlusTopHat, imgBlackHat)
@@ -90,7 +90,8 @@ for file in files:
 
     temp_result = np.zeros((height, width, channel), dtype=np.uint8)
 
-    cv2.drawContours(temp_result, contours=contours, contourIdx=-1, color=(255, 255, 255))
+    cv2.drawContours(temp_result, contours=contours,
+                     contourIdx=-1, color=(255, 255, 255))
 
     # cv2.imshow("temp_result",temp_result)
     # cv2.waitKey(0)
@@ -106,7 +107,8 @@ for file in files:
 
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
-        cv2.rectangle(temp_result, pt1=(x, y), pt2=(x + w, y + h), color=(255, 255, 255), thickness=2)
+        cv2.rectangle(temp_result, pt1=(x, y), pt2=(
+            x + w, y + h), color=(255, 255, 255), thickness=2)
 
         # insert to dict
         contours_dict.append({
@@ -146,7 +148,7 @@ for file in files:
 
     for d in possible_contours:
         #     cv2.drawContours(temp_result, d['contour'], -1, (255, 255, 255))
-        if d['h'] >= 40 and  d['w'] >= 40:
+        if d['h'] >= 40 and d['w'] >= 40:
             dst.append(img_ori[d['y']:d['y'] + d['h'], d['x']:d['x'] + d['w']])
 
     number = 1
@@ -155,14 +157,11 @@ for file in files:
         print(f"crop_image/{number}_{file}")
         number += 1
 
-    #for d in possible_contours:
+    # for d in possible_contours:
         #     cv2.drawContours(temp_result, d['contour'], -1, (255, 255, 255))
     #    cv2.rectangle(img_ori, pt1=(d['x'], d['y']), pt2=(d['x'] + d['w'], d['y'] + d['h']), color=(211, 200, 86),
     #                  thickness=2)
 
     #cv2.imshow("img_ori", img_ori)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
-
-
-
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
