@@ -1,51 +1,21 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 import os
 
-plt.style.use('dark_background')
+if not(os.path.isdir("crop_image")):
+    os.makedirs("crop_image")
 
-
-
-# # Read Input Image
-
-# In[3]:
-
-
-path, dirs, files = next(os.walk("test1"))
+path, dirs, files = next(os.walk("KAKAO"))
 print(len(files))
 
 for file in files:
-    img_ori = cv2.imread(f'test1/{file}')
-
+    img_ori = cv2.imread(f'KAKAO/{file}')
+    #img_ori = cv2.resize(img_ori, dsize=(0, 0), fx=0.1, fy=0.1, interpolation=cv2.INTER_AREA)
+    #이미지가 클 경우에만 사용
     height, width, channel = img_ori.shape
+    #print(height,width)
 
-    # plt.figure(figsize=(12, 10))
-    # cv2.imshow("img_ori",img_ori)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
-    # # Convert Image to Grayscale
-
-    # In[4]:
-
-    # hsv = cv2.cvtColor(img_ori, cv2.COLOR_BGR2HSV)
-    # gray = hsv[:,:,2]
     gray = cv2.cvtColor(img_ori, cv2.COLOR_BGR2GRAY)
-
-    # cv2.imshow("gray",gray)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
-    # # Maximize Contrast (Optional)
-
-    # In[5]:
 
     structuringElement = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 
@@ -55,15 +25,7 @@ for file in files:
     imgGrayscalePlusTopHat = cv2.add(gray, imgTopHat)
     gray = cv2.subtract(imgGrayscalePlusTopHat, imgBlackHat)
 
-    # cv2.imshow("gray",gray)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
-    # # Adaptive Thresholding
-
-    # In[6]:
-
-    img_blurred = cv2.GaussianBlur(gray, ksize=(5, 5), sigmaX=0)
+    img_blurred = cv2.GaussianBlur(gray, (9, 9), 0)
 
     img_thresh = cv2.adaptiveThreshold(
         img_blurred,
@@ -73,14 +35,6 @@ for file in files:
         blockSize=19,
         C=9
     )
-
-    # cv2.imshow("gray",gray)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
-    # # Find Contours
-
-    # In[ ]:
 
     contours, _ = cv2.findContours(
         img_thresh,
@@ -92,14 +46,6 @@ for file in files:
 
     cv2.drawContours(temp_result, contours=contours, contourIdx=-1, color=(255, 255, 255))
 
-    # cv2.imshow("temp_result",temp_result)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
-    # # Prepare Data
-
-    # In[10]:
-
     temp_result = np.zeros((height, width, channel), dtype=np.uint8)
 
     contours_dict = []
@@ -107,6 +53,7 @@ for file in files:
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.rectangle(temp_result, pt1=(x, y), pt2=(x + w, y + h), color=(255, 255, 255), thickness=2)
+        # cv2.rectangle(img_ori, pt1=(x, y), pt2=(x + w, y + h), color=(255, 255, 255), thickness=2)
 
         # insert to dict
         contours_dict.append({
@@ -119,50 +66,51 @@ for file in files:
             'cy': y + (h / 2)
         })
 
-    # cv2.imshow("temp_result",temp_result)
-    # cv2.waitKey(0)
-    # cv2.destroyAllWindows()
-
-    MIN_AREA = 80
+    MIN_AREA = 40
     MIN_WIDTH, MIN_HEIGHT = 4, 4
-    MIN_RATIO, MAX_RATIO = 0.3, 5.0
+    MIN_RATIO, MAX_RATIO = 0.3, 10.0
     # 수치 조정 해야함 <------------------------------------------------------------------------------------------------------------
 
     possible_contours = []
+
+    sum_height = 0
+    sum_width = 0
 
     cnt = 0
     for d in contours_dict:
         area = d['w'] * d['h']
         ratio = d['w'] / d['h']
 
-        if area > MIN_AREA and d['w'] > MIN_WIDTH and d['h'] > MIN_HEIGHT and MIN_RATIO < ratio < MAX_RATIO:
-            d['idx'] = cnt
-            cnt += 1
-            possible_contours.append(d)
+        sum_width += d['w']
+        sum_height += d['h']
 
-    # visualize possible contours
+        # if area > MIN_AREA and d['w'] > MIN_WIDTH and d['h'] > MIN_HEIGHT and MIN_RATIO < ratio < MAX_RATIO:
+        d['idx'] = cnt
+        cnt += 1
+        possible_contours.append(d)
 
+    avg_height = sum_height / len(possible_contours)
+    avg_width = sum_width / len(possible_contours)
+
+    print(len(possible_contours))
+
+    print(avg_width, avg_height)
     dst = []
 
     for d in possible_contours:
-        #     cv2.drawContours(temp_result, d['contour'], -1, (255, 255, 255))
-        if d['h'] >= 40 and  d['w'] >= 40:
+        # cv2.drawContours(temp_result, d['contour'], -1, (255, 255, 255))
+        # print(d['h'],"  ",d['w'])
+        if d['h'] >= avg_height and d['w'] >= avg_width:
             dst.append(img_ori[d['y']:d['y'] + d['h'], d['x']:d['x'] + d['w']])
 
+    #cv2.imshow("img_ori", img_ori)
+    #cv2.imshow("temp_result", temp_result)
+    #cv2.waitKey(0)
+    #cv2.destroyAllWindows()
+
     number = 1
+
     for img in dst:
         cv2.imwrite(f"crop_image/{number}_{file}", img)
         print(f"crop_image/{number}_{file}")
         number += 1
-
-    #for d in possible_contours:
-        #     cv2.drawContours(temp_result, d['contour'], -1, (255, 255, 255))
-    #    cv2.rectangle(img_ori, pt1=(d['x'], d['y']), pt2=(d['x'] + d['w'], d['y'] + d['h']), color=(211, 200, 86),
-    #                  thickness=2)
-
-    #cv2.imshow("img_ori", img_ori)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
-
-
-
