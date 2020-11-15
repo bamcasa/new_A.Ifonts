@@ -3,3 +3,7 @@ Classified_image/
 test1/
 
 01_handwriting_sentence_images.zip
+
+result/Classified_image/
+result/crop_image/
+result/Formalization_image/
