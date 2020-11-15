@@ -14,13 +14,24 @@
 
 - opencv-python==4.4.0.44
 - pillow==8.0.1
-- tensorflow-gpu==1.15.0
+- tensorflow == 2.3.0
 
 // numpy는 opencv 깔 때 같이 깔리는 걸로 알고 있음
 
 # Usage
 
 사용법
+
+1. crop.py 실행
+
+2. convert_grayscale.py 실행
+
+3. division.py 실행
+
+4. Formalization.py 실행
+
+5. show.py 실행 후 
+   각 자음 모음 잘 되었는지 확인
 
 # 메모장..
 
