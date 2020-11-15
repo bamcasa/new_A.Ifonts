@@ -22,15 +22,17 @@
 
 사용법
 
-1. crop.py 실행
+1. INPUT_IMAGE 디렉토리에 글씨체 이미지를 
 
-2. convert_grayscale.py 실행
+2. crop.py 실행
 
-3. division.py 실행
+3. convert_grayscale.py 실행
 
-4. Formalization.py 실행
+4. division.py 실행
 
-5. show.py 실행 후 
+5. Formalization.py 실행
+
+6. show.py 실행 후 
    각 자음 모음 잘 되었는지 확인
 
 # 메모장..
