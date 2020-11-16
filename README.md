@@ -8,29 +8,31 @@
 
 # Used Tools
 
-### Technology Stack
-
-> 프로젝트에 사용된 기술
-
-- Python
 - Teachable Machine
-- Node.js
-
-### Python 3.7 Requirements
-
-// requirements.txt 를 사용하는 쪽으로 바꿀 생각 중
-
-> 코드 실행에 필요한 파이썬 라이브러리 및 버전
-
-- opencv-python==4.4.0.44
-- pillow==8.0.1
-- tensorflow==2.3.0
+- Python (3.7.X)
+- Node.js (v.12.XX.X)
 
 # Usage
 
-### Prepare Handwriting Image
+### Install
 
-- `INPUT_IMAGE` 폴더에 손글씨체 이미지를 넣습니다.
+- [Python (3.7)](https://www.python.org/downloads/release/python-379)과 [Node.js (v.12)](https://nodejs.org/download/release/v12.19.0/)를 설치합니다.
+
+- 해당 프로젝트를 `git clone https://github.com/bamcasa/new_A.Ifonts.git` 또는 압축 파일 다운로드를 통해서 다운받습니다.
+
+- 프로젝트의 루트 폴더에서 다음을 실행하여 파이썬 라이브러리를 설치합니다.
+```sh
+pip install -r requirements.txt
+```
+
+- `result` 폴더로 이동 후 다음을 실행하여 Node.js 라이브러리를 설치합니다.
+```sh
+npm install
+```
+
+### Prepare Handwriting
+
+- `INPUT_IMAGE` 폴더에 손글씨체 이미지를 준비합니다.
 
 ### Crop
 
@@ -57,7 +59,7 @@ python division.py
 - 티처블 머신으로 자음과 모음을 학습시킨 모델을 이용하여 추출된 음운을 분류합니다.
 
 
-### Formalization.py
+### Formulate
 
 ```sh
 python Formalization.py
@@ -65,13 +67,37 @@ python Formalization.py
 
 - 분류된 이미지를 가운데에 위치시킵니다.
 
-### Check 
+### Confirm
 
 ```sh
 python show.py
 ```
 
 - 자음, 모음의 분류가 잘 이루어졌는지 확인합니다.
+
+### Set Name
+
+```sh
+python covent_name.py
+```
+
+- 이미지들을 `glyph` 폴더에 초성, 중성, 종성으로 분류하여 저장합니다.
+
+### Combine
+
+```sh
+python combine.py
+```
+
+- 초성, 중성, 종성들을 결합하여 글자들을 만듭니다.
+
+### Make Font
+
+```sh
+node ttf.js
+```
+
+- `.png` 파일들을 `.ttf` 파일로 만들고 `fonts` 폴더에서 만들어진 폰트를 확인합니다.
 
 # 메모장..
 
