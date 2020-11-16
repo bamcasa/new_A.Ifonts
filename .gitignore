@@ -1,11 +1,13 @@
+.vscode/
+
 crop_image/
 Classified_image/
 test1/
 
 01_handwriting_sentence_images.zip
 
-result/Classified_image/
 result/crop_image/
+result/Classified_image/
 result/Formalization_image/
-
 result/glyph/
+result/save_dir/

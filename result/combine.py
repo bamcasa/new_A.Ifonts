@@ -2,17 +2,31 @@ import os
 import cv2
 import numpy as np
 
-""" * 음운간 거리 지정은 double, triple 함수 실행할 때 ja_start등의 인자에 활용하면 됨
-    * base 이미지 크기 바꾸면 png2ttf에서도 변경 필요
-    * 파이썬으로 png2ttf를 구현해보려 했으나 이미지 벡터화 라이브러리가 마땅치 않음
-    * 현재 코드는 음운의 파일 이름이 3131.png('ㄱ' 유니코드)처럼 음운의 유니코드 값 네 글자로 함
-      -> 파일 이름 저장 방식 바뀌더라도 수정 가능 (한글로 저장해도 괜찮지 않을까..)"""
+"""
+추출된 음운들을 결합하여 글자 만듦
+
+>>> doble, triple 함수 사용시 주의 사항
+XX_start 인자의 경우 (y좌표, x좌표) 의 형태로 넣어야하며 
+아래와 같은 좌표평면을 사용합니다.
+
+(0,0)ㅡㅡㅡㅡㅡ (+) x축
+|
+|
+|
+|
+|
+(+)
+y축
+
+* 음운간 거리 지정은 double, triple 함수 실행할 때 ja_start등의 인자에 활용하면 됨
+* 파이썬으로 png2ttf를 구현해보려 했으나 이미지 벡터화 라이브러리가 마땅치 않음
+"""
 
 base = cv2.imread("combine_base.png")  # 224 * 244
 
 
 def double(mo_path, mo_start, ja_start):
-    """초성, 중성으로 구성된 음운 생성"""
+    '''초성, 중성으로 구성된 음운 생성'''
     ja_dir = "glyph/cho"
     mo_filename = mo_path[-8:]  # 모음 이미지 파일 이름
     mo_unicode_str = mo_filename[:4]  # 모음 유니코드 값 (4자리)
@@ -58,8 +72,8 @@ def double(mo_path, mo_start, ja_start):
         base[:, :] = 255  # 베이스 초기화
 
 
-def triple(mo_path, ja1_dir, ja2_dir, mo_start, ja1_start, ja2_start):
-    """초성, 중성, 종성으로 구성된 음운 생성"""
+def triple(mo_path, mo_start, ja1_start, ja2_start):
+    '''초성, 중성, 종성으로 구성된 음운 생성'''
     ja1_dir = "glyph/cho"
     ja2_dir = "glyph/jong"
 
@@ -126,7 +140,7 @@ def triple(mo_path, ja1_dir, ja2_dir, mo_start, ja1_start, ja2_start):
 
 
 def get_unicode_int(ja1_name, mo_name, ja2_name=""):
-    """글자의 유니코드 정수값 생성"""
+    '''글자의 유니코드 정수값 생성'''
     ja1_table = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ",
                  "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"]
 
@@ -144,14 +158,16 @@ def get_unicode_int(ja1_name, mo_name, ja2_name=""):
     return unicode_int
 
 
+""" ㅏ, ㅗ """
+
 # double(mo_path="glyph/mo/314F.png",
-#        mo_start=(75, 110), ja_start=(80, 60)) # ㅏ
+#        mo_start=(75, 120), ja_start=(80, 55))  # ㅏ
 
 # double(mo_path="glyph/mo/3154.png",
 #        mo_start=(53, 110), ja_start=(80, 60)) # ㅔ
 
 # double(mo_path="glyph/mo/3157.png",
-#        mo_start=(110, 70), ja_start=(60, 90))  # ㅗ
+#        mo_start=(120, 70), ja_start=(55, 70))  # ㅗ
 
 # double(mo_path="glyph/mo/315F.png",
 #        mo_start=(60, 50), ja_start=(40, 50))  # ㅟ
@@ -210,7 +226,7 @@ def get_unicode_int(ja1_name, mo_name, ja2_name=""):
 ''''''
 
 # triple(mo_path="glyph/mo/314F.png",
-#         mo_start=(55, 110), ja1_start=(60, 60), ja2_start=(129, 80)) # ㅏ
+#        mo_start=(40, 115), ja1_start=(30, 50), ja2_start=(119, 80))  # ㅏ
 
 # triple(mo_path="glyph/mo/3154.png",
 #         mo_start=(55, 110), ja1_start=(60, 40), ja2_start=(129, 80))  # ㅔ
