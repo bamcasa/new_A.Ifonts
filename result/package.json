@@ -1,0 +1,17 @@
+{
+  "name": "ttf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ttf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graceful-fs": "^4.2.4",
+    "pngjs": "^6.0.0",
+    "svg2ttf": "^5.0.0",
+    "svgicons2svgfont": "^9.1.1"
+  }
+}
