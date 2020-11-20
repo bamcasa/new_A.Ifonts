@@ -59,6 +59,7 @@ for (let i = 0; i < fileNames.length; i++) {
     };
 
     // 벡터화 옵션 (폰트 스타일)
+    // 왠진 모르겠는데 옵션이 안 먹힘
     let options = {
         ltres: 1.0,
         qtres: 1.0,

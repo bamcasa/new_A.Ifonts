@@ -6,7 +6,7 @@ import numpy as np
 추출된 음운들을 결합하여 글자 만듦
 
 >>> doble, triple 함수 사용시 주의 사항
-XX_start 인자의 경우 (y좌표, x좌표) 의 형태로 넣어야하며 
+XX_start 인자의 경우 (y좌표, x좌표) 의 형태로 넣어야하며
 아래와 같은 좌표평면을 사용합니다.
 
 (0,0)ㅡㅡㅡㅡㅡ (+) x축
@@ -28,6 +28,7 @@ base = cv2.imread("combine_base.png")  # 224 * 244
 def double(mo_path, mo_start, ja_start):
     '''초성, 중성으로 구성된 음운 생성'''
     ja_dir = "glyph/cho"
+
     mo_filename = mo_path[-8:]  # 모음 이미지 파일 이름
     mo_unicode_str = mo_filename[:4]  # 모음 유니코드 값 (4자리)
     mo_name = bytes(
@@ -59,9 +60,6 @@ def double(mo_path, mo_start, ja_start):
 
         base[ja_height_start:ja_height_start+ja_height,
              ja_width_start:ja_width_start+ja_width] = ja  # 자음 합성
-
-        if not os.path.exists("save_dir"):
-            os.mkdir("save_dir")
 
         glyph_name = chr(get_unicode_int(ja_name, mo_name))
         glyph_unicode_str = str(glyph_name.encode("unicode_escape")).replace(
@@ -127,8 +125,148 @@ def triple(mo_path, mo_start, ja1_start, ja2_start):
             base[ja2_height_start:ja2_height_start+ja2_height,
                  ja2_width_start:ja2_width_start+ja2_width] = ja2  # 종성 합성
 
-            if not os.path.exists("save_dir"):
-                os.mkdir("save_dir")
+            glyph_name = chr(get_unicode_int(ja1_name, mo_name, ja2_name))
+            glyph_unicode_str = str(glyph_name.encode("unicode_escape")).replace(
+                "b'\\\\u", "").replace("'", "").upper()  # 완성된 글자의 유니코드 값 (4자리)
+
+            cv2.imwrite(f"save_dir/{glyph_unicode_str}.png", base)
+
+            base[:, :] = 255  # 베이스 초기화
+
+
+def double_dual_mo(mo1_path, mo2_path, mo1_start, mo2_start, ja_start):
+    '''초성, 중성(이중모음)으로 구성된 음운 생성'''
+    ja_dir = "glyph/cho"
+
+    mo1_filename = mo1_path[-8:]  # 모음 1 이미지 파일 이름
+    mo2_filename = mo2_path[-8:]  # 모음 2 이미지 파일 이름
+
+    mo1_unicode_str = mo1_filename[:4]  # 모음 1 유니코드 값 (4자리)
+    mo2_unicode_str = mo2_filename[:4]  # 모음 2 유니코드 값 (4자리)
+
+    mo1_name = bytes(
+        "\\u" + mo1_unicode_str.lower(), "utf8").decode("unicode_escape")  # 모음 1 한글
+    mo2_name = bytes(
+        "\\u" + mo2_unicode_str.lower(), "utf8").decode("unicode_escape")  # 모음 2 한글
+
+    mo_unicode_str = get_dual_mo()  # 이중모음 유니코드 값 (4자리)
+    mo_name = bytes(
+        "\\u" + mo_unicode_str.lower(), "utf8").decode("unicode_escape")  # 이중모음 한글
+
+    ja_list = os.listdir(ja_dir)  # 자음 이미지 목록
+
+    mo1 = cv2.imread(mo1_path)  # 모음 1 불러오기
+    mo1_height, mo1_width, _ = mo1.shape  # 모음 1 픽셀 정보 저장
+    mo2 = cv2.imread(mo2_path)  # 모음 2 불러오기
+    mo2_height, mo2_width, _ = mo2.shape  # 모음 2 픽셀 정보 저장
+
+    # 모음 합성 시작점 설정
+    mo1_height_start = mo1_start[0]
+    mo1_width_start = mo1_start[1]
+    mo2_height_start = mo2_start[0]
+    mo2_width_start = mo2_start[1]
+
+    for ja_filename in ja_list:
+        ja_unicode_str = ja_filename[:4]  # 자음 유니코드 값 (4자리)
+        ja_name = bytes(
+            "\\u" + ja_unicode_str.lower(), "utf8").decode("unicode_escape")  # 자음 한글
+
+        base[mo1_height_start:mo1_height_start+mo1_height,
+             mo1_width_start:mo1_width_start+mo1_width] = mo1  # 모음 1 합성
+
+        base[mo2_height_start:mo2_height_start+mo2_height,
+             mo2_width_start:mo2_width_start+mo2_width] = mo2  # 모음 2 합성
+
+        ja = cv2.imread(f"{ja_dir}/{ja_filename}")  # 자음 불러오기
+        ja_height, ja_width, _ = ja.shape  # 자음 픽셀 정보 저장
+
+        # 자음 합성 시작점 설정
+        ja_height_start = ja_start[0]
+        ja_width_start = ja_start[1]
+
+        base[ja_height_start:ja_height_start+ja_height,
+             ja_width_start:ja_width_start+ja_width] = ja  # 자음 합성
+
+        glyph_name = chr(get_unicode_int(ja_name, mo_name))
+        glyph_unicode_str = str(glyph_name.encode("unicode_escape")).replace(
+            "b'\\\\u", "").replace("'", "").upper()  # 완성된 글자의 유니코드 값 (4자리)
+
+        cv2.imwrite(f"save_dir/{glyph_unicode_str}.png", base)
+
+        base[:, :] = 255  # 베이스 초기화
+
+
+def triple_dual_mo(mo1_path, mo2_path, mo1_start, mo2_start, ja1_start, ja2_start):
+    '''초성, 중성(이중모음), 종성으로 구성된 음운 생성'''
+    ja1_dir = "glyph/cho"
+    ja2_dir = "glyph/jong"
+
+    mo1_filename = mo1_path[-8:]  # 모음 1 이미지 파일 이름
+    mo2_filename = mo2_path[-8:]  # 모음 2 이미지 파일 이름
+
+    mo1_unicode_str = mo1_filename[:4]  # 모음 1 유니코드 값 (4자리)
+    mo2_unicode_str = mo2_filename[:4]  # 모음 2 유니코드 값 (4자리)
+
+    mo1_name = bytes(
+        "\\u" + mo1_unicode_str.lower(), "utf8").decode("unicode_escape")  # 모음 1 한글
+    mo2_name = bytes(
+        "\\u" + mo2_unicode_str.lower(), "utf8").decode("unicode_escape")  # 모음 2 한글
+
+    mo_unicode_str = get_dual_mo()  # 이중모음 유니코드 값 (4자리)
+    mo_name = bytes(
+        "\\u" + mo_unicode_str.lower(), "utf8").decode("unicode_escape")  # 이중모음 한글
+
+    ja1_list = os.listdir(ja1_dir)  # 초성 이미지 목록
+    ja2_list = os.listdir(ja2_dir)  # 종성 이미지 목록
+
+    mo1 = cv2.imread(mo1_path)  # 모음 1 불러오기
+    mo1_height, mo1_width, _ = mo1.shape  # 모음 1 픽셀 정보 저장
+    mo2 = cv2.imread(mo2_path)  # 모음 2 불러오기
+    mo2_height, mo2_width, _ = mo2.shape  # 모음 2 픽셀 정보 저장
+
+    # 모음 합성 시작점 설정
+    mo1_height_start = mo1_start[0]
+    mo1_width_start = mo1_start[1]
+    mo2_height_start = mo2_start[0]
+    mo2_width_start = mo2_start[1]
+
+    for ja1_filename in ja1_list:
+        ja1_unicode_str = ja1_filename[:4]  # 초성 유니코드 값 (4자리)
+        ja1_name = bytes(
+            "\\u" + ja1_unicode_str.lower(), "utf8").decode("unicode_escape")  # 초성 한글
+
+        for ja2_filename in ja2_list:
+            ja2_unicode_str = ja2_filename[:4]  # 종성 유니코드 값 (4자리)
+            ja2_name = bytes(
+                "\\u" + ja2_unicode_str.lower(), "utf8").decode("unicode_escape")  # 종성 한글
+
+            base[mo1_height_start:mo1_height_start+mo1_height,
+                 mo1_width_start:mo1_width_start+mo1_width] = mo1  # 모음 1 합성
+
+            base[mo2_height_start:mo2_height_start+mo2_height,
+                 mo2_width_start:mo2_width_start+mo2_width] = mo2  # 모음 2 합성
+
+            ja1 = cv2.imread(f"{ja1_dir}/{ja1_filename}")  # 초성 불러오기
+            ja1_height, ja1_width, _ = ja1.shape  # 초성 픽셀 정보 저장
+
+            # 초성 합성 시작점 설정
+            ja1_height_start = ja1_start[0]
+            ja1_width_start = ja1_start[1]
+
+            base[ja1_height_start:ja1_height_start+ja1_height,
+                 ja1_width_start:ja1_width_start+ja1_width] = ja1  # 초성 합성
+
+            '''초성/종성 구분선'''
+
+            ja2 = cv2.imread(f"{ja2_dir}/{ja2_filename}")  # 종성 불러오기
+            ja2_height, ja2_width, _ = ja2.shape  # 종성 픽셀 정보 저장
+
+            # 종성 합성 시작점 설정
+            ja2_height_start = ja2_start[0]
+            ja2_width_start = ja2_start[1]
+
+            base[ja2_height_start:ja2_height_start+ja2_height,
+                 ja2_width_start:ja2_width_start+ja2_width] = ja2  # 종성 합성
 
             glyph_name = chr(get_unicode_int(ja1_name, mo_name, ja2_name))
             glyph_unicode_str = str(glyph_name.encode("unicode_escape")).replace(
@@ -158,19 +296,53 @@ def get_unicode_int(ja1_name, mo_name, ja2_name=""):
     return unicode_int
 
 
-""" ㅏ, ㅗ """
+def get_dual_mo(mo1_unicode_str, mo2_unicode_str):
+    mo1 = bytes(
+        "\\u" + mo1_unicode_str.lower(), "utf8").decode("unicode_escape")  # 모음 1 한글
+    mo2 = bytes(
+        "\\u" + mo2_unicode_str.lower(), "utf8").decode("unicode_escape")  # 모음 1 한글
 
-double(mo_path="glyph/mo/314F.png",
-       mo_start=(75, 120), ja_start=(80, 55))  # ㅏ
+    # 모음 조합에 따른 이중모음 지정
+    if mo1 == "ㅏ" and mo2 == "ㅣ":
+        mo = "ㅐ"
+    elif mo1 == "ㅓ" and mo2 == "ㅣ":
+        mo = "ㅔ"
+    elif mo1 == "ㅑ" and mo2 == "ㅣ":
+        mo = "ㅒ"
+    elif mo1 == "ㅕ" and mo2 == "ㅣ":
+        mo = "ㅖ"
+    elif mo1 == "ㅗ" and mo2 == "ㅣ":
+        mo = "ㅚ"
+    elif mo1 == "ㅜ" and mo2 == "ㅣ":
+        mo = "ㅟ"
+    elif mo1 == "ㅗ" and mo2 == "ㅐ":
+        mo = "ㅙ"
+    elif mo1 == "ㅜ" and mo2 == "ㅔ":
+        mo = "ㅞ"
+    elif mo1 == "ㅡ" and mo2 == "ㅣ":
+        mo = "ㅢ"
+    elif mo1 == "ㅗ" and mo2 == "ㅏ":
+        mo = "ㅘ"
+    elif mo1 == "ㅜ" and mo2 == "ㅓ":
+        mo = "ㅝ"
 
-# double(mo_path="glyph/mo/3154.png",
-#        mo_start=(53, 110), ja_start=(80, 60)) # ㅔ
+    mo_unicode_str = str(mo.encode("unicode_escape")).replace(
+        "b'\\\\u", "").replace("'", "").upper()  # 이중모음의 유니코드 값 (4자리)
 
-double(mo_path="glyph/mo/3157.png",
-       mo_start=(120, 70), ja_start=(55, 70))  # ㅗ
+    return mo1_unicode_str
 
-# double(mo_path="glyph/mo/315F.png",
-#        mo_start=(60, 50), ja_start=(40, 50))  # ㅟ
+
+if not os.path.exists("save_dir"):
+    os.mkdir("save_dir")
+
+# double(mo_path="glyph/mo/314F.png",
+#        mo_start=(75, 120), ja_start=(80, 55))  # ㅏ
+
+# double(mo_path="glyph/mo/3157.png",
+#        mo_start=(120, 70), ja_start=(55, 70))  # ㅗ
+
+# double(mo_path="glyph/mo/315C.png",
+#        mo_start=(110, 40), ja_start=(40, 70))  # ㅜ
 
 # double(mo_path="glyph/mo/3154.png",
 #        mo_start=(63, 110), ja_start=(80, 40))  # ㅓ
@@ -217,25 +389,25 @@ double(mo_path="glyph/mo/3157.png",
 # double(mo_path="glyph/mo/3156.png",
 #        mo_start=(60, 100), ja_start=(80, 45))  # ㅖ
 
-# double(mo_path="glyph/mo/315C.png",
-#        mo_start=(110, 40), ja_start=(40, 70))  # ㅜ
-
 # double(mo_path="glyph/mo/3162.png",
 #        mo_start=(60, 50), ja_start=(40, 60))  # ㅢ
 
+# double(mo_path="glyph/mo/3154.png",
+#        mo_start=(53, 110), ja_start=(80, 60)) # ㅔ
+
+# double(mo_path="glyph/mo/315F.png",
+#        mo_start=(60, 50), ja_start=(40, 50))  # ㅟ
+
 ''''''
 
-triple(mo_path="glyph/mo/314F.png",
-       mo_start=(40, 115), ja1_start=(30, 50), ja2_start=(119, 80))  # ㅏ
+# triple(mo_path="glyph/mo/314F.png",
+#        mo_start=(40, 115), ja1_start=(30, 50), ja2_start=(119, 80))  # ㅏ
 
-# triple(mo_path="glyph/mo/3154.png",
-#        mo_start=(55, 110), ja1_start=(60, 40), ja2_start=(129, 80))  # ㅔ
+# triple(mo_path="glyph/mo/3157.png",
+#        mo_start=(40, 70), ja1_start=(15, 70), ja2_start=(130, 70))  # ㅗ
 
-# triple(mo_path="glyph/mo/315F.png",
-#         mo_start=(35, 50), ja1_start=(30, 70), ja2_start=(139, 80))  # ㅟ
-
-triple(mo_path="glyph/mo/3157.png",
-       mo_start=(40, 70), ja1_start=(15, 70), ja2_start=(130, 70))  # ㅗ
+# triple(mo_path="glyph/mo/315C.png",
+#         mo_start=(60, 50), ja1_start=(20, 80), ja2_start=(145, 70))  # ㅜ
 
 # triple(mo_path="glyph/mo/3153.png",
 #         mo_start=(45, 110), ja1_start=(40, 60), ja2_start=(129, 80))  # ㅓ
@@ -282,8 +454,11 @@ triple(mo_path="glyph/mo/3157.png",
 # triple(mo_path="glyph/mo/3156.png",
 #         mo_start=(50, 110), ja1_start=(50, 60), ja2_start=(135, 80))  # ㅖ
 
-# triple(mo_path="glyph/mo/315C.png",
-#         mo_start=(60, 50), ja1_start=(20, 80), ja2_start=(145, 70))  # ㅜ
-
 # triple(mo_path="glyph/mo/3162.png",
 #         mo_start=(40, 50), ja1_start=(30, 70), ja2_start=(145, 70))  # ㅢ
+
+# triple(mo_path="glyph/mo/3154.png",
+#        mo_start=(55, 110), ja1_start=(60, 40), ja2_start=(129, 80))  # ㅔ
+
+# triple(mo_path="glyph/mo/315F.png",
+#         mo_start=(35, 50), ja1_start=(30, 70), ja2_start=(139, 80))  # ㅟ
