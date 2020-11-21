@@ -186,130 +186,130 @@ def get_unicode_int(ja1_name, mo_name, ja2_name=""):
 if not os.path.exists("save_dir"):
     os.mkdir("save_dir")
 
-# double(mo_path="glyph/mo/314F.png",
-#        mo_start=(75, 120), ja_start=(80, 55))  # ㅏ
+double(mo_path="glyph/mo/314F.png",
+       mo_start=(75, 120), ja_start=(80, 55))  # ㅏ
 
-# double(mo_path="glyph/mo/3157.png",
-#        mo_start=(120, 70), ja_start=(55, 70))  # ㅗ
+double(mo_path="glyph/mo/3157.png",
+       mo_start=(120, 70), ja_start=(55, 70))  # ㅗ
 
-# double(mo_path="glyph/mo/315C.png",
-#        mo_start=(110, 40), ja_start=(40, 70))  # ㅜ
+double(mo_path="glyph/mo/315C.png",
+       mo_start=(110, 70), ja_start=(40, 70))  # ㅜ
 
-# double(mo_path="glyph/mo/3154.png",
-#        mo_start=(63, 110), ja_start=(80, 40))  # ㅓ
+double(mo_path="glyph/mo/3153.png",
+       mo_start=(63, 110), ja_start=(70, 40))  # ㅓ
 
-# double(mo_path="glyph/mo/315B.png",
-#        mo_start=(120, 65), ja_start=(50, 85))  # ㅛ
+double(mo_path="glyph/mo/315B.png",
+       mo_start=(110, 75), ja_start=(40, 75))  # ㅛ
 
-# double(mo_path="glyph/mo/3160.png",
-#        mo_start=(125, 65), ja_start=(35, 85))  # ㅠ
+double(mo_path="glyph/mo/3160.png",
+       mo_start=(115, 65), ja_start=(35, 70))  # ㅠ
 
-# double(mo_path="glyph/mo/3151.png",
-#        mo_start=(50, 120), ja_start=(55, 50))  # ㅑ
+double(mo_path="glyph/mo/3151.png",
+       mo_start=(50, 120), ja_start=(55, 50))  # ㅑ
 
-# double(mo_path="glyph/mo/3155.png",
-#        mo_start=(50, 120), ja_start=(75, 50))  # ㅕ
+double(mo_path="glyph/mo/3155.png",
+       mo_start=(70, 110), ja_start=(75, 40))  # ㅕ
 
-# double(mo_path="glyph/mo/3163.png",
-#        mo_start=(50, 145), ja_start=(75, 50))  # ㅣ
+double(mo_path="glyph/mo/3163.png",
+       mo_start=(70, 115), ja_start=(75, 50))  # ㅣ
 
-# double(mo_path="glyph/mo/3161.png",
-#        mo_start=(160, 60), ja_start=(75, 75))  # ㅡ
+double(mo_path="glyph/mo/3161.png",
+       mo_start=(120, 75), ja_start=(45, 75))  # ㅡ
 
-# double(mo_path="glyph/mo/3152.png",
-#        mo_start=(40, 130), ja_start=(65, 60))  # ㅒ
+double(mo_path="glyph/mo/3152.png",
+       mo_start=(0, 0), ja_start=(65, 30))  # ㅒ
 
-# double(mo_path="glyph/mo/3150.png",
-#        mo_start=(40, 130), ja_start=(65, 55))  # ㅐ
+double(mo_path="glyph/mo/3150.png",
+       mo_start=(0, 0), ja_start=(65, 30))  # ㅐ
 
-# double(mo_path="glyph/mo/315E.png",
-#        mo_start=(80, 40), ja_start=(35, 55))  # ㅞ
+double(mo_path="glyph/mo/315E.png",
+       mo_start=(0, 0), ja_start=(15, 55))  # ㅞ
 
-# double(mo_path="glyph/mo/3158.png",
-#        mo_start=(80, 50), ja_start=(35, 65))  # ㅘ
+double(mo_path="glyph/mo/3158.png",
+       mo_start=(0, 0), ja_start=(35, 55))  # ㅘ
 
-# double(mo_path="glyph/mo/3159.png",
-#        mo_start=(80, 40), ja_start=(45, 55))  # ㅙ
+double(mo_path="glyph/mo/3159.png",
+       mo_start=(0, 0), ja_start=(15, 55))  # ㅙ
 
-# double(mo_path="glyph/mo/315D.png",
-#        mo_start=(80, 60), ja_start=(45, 75))  # ㅝ
+double(mo_path="glyph/mo/315D.png",
+       mo_start=(0, 0), ja_start=(15, 65))  # ㅝ
 
-# double(mo_path="glyph/mo/315A.png",
-#        mo_start=(80, 50), ja_start=(45, 75))  # ㅚ
+double(mo_path="glyph/mo/315A.png",
+       mo_start=(0, 0), ja_start=(25, 65))  # ㅚ
 
-# double(mo_path="glyph/mo/3156.png",
-#        mo_start=(60, 100), ja_start=(80, 45))  # ㅖ
+double(mo_path="glyph/mo/3156.png",
+       mo_start=(0, 0), ja_start=(80, 15))  # ㅖ
 
-# double(mo_path="glyph/mo/3162.png",
-#        mo_start=(60, 50), ja_start=(40, 60))  # ㅢ
+double(mo_path="glyph/mo/3162.png",
+       mo_start=(0, 0), ja_start=(40, 60))  # ㅢ
 
-# double(mo_path="glyph/mo/3154.png",
-#        mo_start=(53, 110), ja_start=(80, 60)) # ㅔ
+double(mo_path="glyph/mo/3154.png",
+       mo_start=(0, 0), ja_start=(80, 20))  # ㅔ
 
-# double(mo_path="glyph/mo/315F.png",
-#        mo_start=(60, 50), ja_start=(40, 50))  # ㅟ
+double(mo_path="glyph/mo/315F.png",
+       mo_start=(0, 0), ja_start=(20, 70))  # ㅟ
 
 ''''''
 
-# triple(mo_path="glyph/mo/314F.png",
-#        mo_start=(40, 115), ja1_start=(30, 50), ja2_start=(119, 80))  # ㅏ
+triple(mo_path="glyph/mo/314F.png",
+       mo_start=(40, 115), ja1_start=(30, 50), ja2_start=(119, 80))  # ㅏ
 
-# triple(mo_path="glyph/mo/3157.png",
-#        mo_start=(40, 70), ja1_start=(15, 70), ja2_start=(130, 70))  # ㅗ
+triple(mo_path="glyph/mo/3157.png",
+       mo_start=(65, 70), ja1_start=(15, 70), ja2_start=(120, 70))  # ㅗ
 
-# triple(mo_path="glyph/mo/315C.png",
-#         mo_start=(60, 50), ja1_start=(20, 80), ja2_start=(145, 70))  # ㅜ
+triple(mo_path="glyph/mo/315C.png",
+       mo_start=(75, 60), ja1_start=(20, 70), ja2_start=(120, 65))  # ㅜ
 
-# triple(mo_path="glyph/mo/3153.png",
-#         mo_start=(45, 110), ja1_start=(40, 60), ja2_start=(129, 80))  # ㅓ
+triple(mo_path="glyph/mo/3153.png",
+       mo_start=(45, 100), ja1_start=(40, 30), ja2_start=(120, 70))  # ㅓ
 
-# triple(mo_path="glyph/mo/315B.png",
-#         mo_start=(60, 55), ja1_start=(30, 80), ja2_start=(140, 80))  # ㅛ
+triple(mo_path="glyph/mo/315B.png",
+       mo_start=(60, 70), ja1_start=(15, 70), ja2_start=(120, 80))  # ㅛ
 
-# triple(mo_path="glyph/mo/3160.png",
-#         mo_start=(90, 55), ja1_start=(30, 80), ja2_start=(145, 80))  # ㅠ
+triple(mo_path="glyph/mo/3160.png",
+       mo_start=(65, 70), ja1_start=(10, 70), ja2_start=(120, 70))  # ㅠ
 
-# triple(mo_path="glyph/mo/3151.png",
-#         mo_start=(30, 130), ja1_start=(50, 60), ja2_start=(125, 70))  # ㅑ
+triple(mo_path="glyph/mo/3151.png",
+       mo_start=(30, 110), ja1_start=(40, 40), ja2_start=(120, 70))  # ㅑ
 
-# triple(mo_path="glyph/mo/3155.png",
-#         mo_start=(20, 120), ja1_start=(50, 60), ja2_start=(135, 90))  # ㅕ
+triple(mo_path="glyph/mo/3155.png",
+       mo_start=(40, 100), ja1_start=(35, 40), ja2_start=(125, 70))  # ㅕ
 
-# triple(mo_path="glyph/mo/3163.png",
-#         mo_start=(20, 140), ja1_start=(50, 60), ja2_start=(135, 90))  # ㅣ
+triple(mo_path="glyph/mo/3163.png",
+       mo_start=(35, 120), ja1_start=(40, 50), ja2_start=(125, 90))  # ㅣ
 
-# triple(mo_path="glyph/mo/3161.png",
-#         mo_start=(20, 140), ja1_start=(50, 60), ja2_start=(135, 90))  # ㅡ
+triple(mo_path="glyph/mo/3161.png",
+       mo_start=(65, 70), ja1_start=(20, 70), ja2_start=(120, 80))  # ㅡ
 
-# triple(mo_path="glyph/mo/3152.png",
-#         mo_start=(20, 140), ja1_start=(50, 60), ja2_start=(135, 80))  # ㅒ
+triple(mo_path="glyph/mo/3152.png",
+       mo_start=(0, 0), ja1_start=(50, 40), ja2_start=(120, 70))  # ㅒ
 
-# triple(mo_path="glyph/mo/3150.png",
-#         mo_start=(20, 140), ja1_start=(50, 60), ja2_start=(140, 90))  # ㅐ
+triple(mo_path="glyph/mo/3150.png",
+       mo_start=(0, 0), ja1_start=(50, 30), ja2_start=(125, 70))  # ㅐ
 
-# triple(mo_path="glyph/mo/315E.png",
-#         mo_start=(50, 50), ja1_start=(25, 70), ja2_start=(145, 90))  # ㅞ
+triple(mo_path="glyph/mo/315E.png",
+       mo_start=(0, 0), ja1_start=(10, 70), ja2_start=(125, 80))  # ㅞ
 
-# triple(mo_path="glyph/mo/3158.png",
-#         mo_start=(50, 45), ja1_start=(25, 80), ja2_start=(145, 90))  # ㅘ
+triple(mo_path="glyph/mo/3158.png",
+       mo_start=(0, 0), ja1_start=(25, 60), ja2_start=(125, 80))  # ㅘ
 
-# triple(mo_path="glyph/mo/3159.png",
-#         mo_start=(50, 45), ja1_start=(25, 70), ja2_start=(145, 90))  # ㅙ
+triple(mo_path="glyph/mo/3159.png",
+       mo_start=(0, 0), ja1_start=(15, 55), ja2_start=(125, 75))  # ㅙ
 
-# triple(mo_path="glyph/mo/315D.png",
-#         mo_start=(50, 45), ja1_start=(25, 70), ja2_start=(145, 90))  # ㅝ
+triple(mo_path="glyph/mo/315D.png",
+       mo_start=(0, 0), ja1_start=(25, 70), ja2_start=(130, 70))  # ㅝ
 
-# triple(mo_path="glyph/mo/315A.png",
-#         mo_start=(50, 50), ja1_start=(25, 80), ja2_start=(145, 90))  # ㅚ
+triple(mo_path="glyph/mo/315A.png",
+       mo_start=(0, 0), ja1_start=(25, 80), ja2_start=(125, 90))  # ㅚ
 
-# triple(mo_path="glyph/mo/3156.png",
-#         mo_start=(50, 110), ja1_start=(50, 60), ja2_start=(135, 80))  # ㅖ
+triple(mo_path="glyph/mo/3156.png",
+       mo_start=(0, 0), ja1_start=(50, 20), ja2_start=(125, 60))  # ㅖ
 
-# triple(mo_path="glyph/mo/3162.png",
-#         mo_start=(40, 50), ja1_start=(30, 70), ja2_start=(145, 70))  # ㅢ
+triple(mo_path="glyph/mo/3162.png",
+       mo_start=(0, 0), ja1_start=(20, 60), ja2_start=(125, 70))  # ㅢ
 
-# triple(mo_path="glyph/mo/3154.png",
-#        mo_start=(55, 110), ja1_start=(60, 40), ja2_start=(129, 80))  # ㅔ
+triple(mo_path="glyph/mo/3154.png",
+       mo_start=(0, 0), ja1_start=(60, 30), ja2_start=(125, 70))  # ㅔ
 
-# triple(mo_path="glyph/mo/315F.png",
-#         mo_start=(35, 50), ja1_start=(30, 70), ja2_start=(139, 80))  # ㅟ
+triple(mo_path="glyph/mo/315F.png",
+       mo_start=(0, 0), ja1_start=(30, 70), ja2_start=(125, 80))  # ㅟ
