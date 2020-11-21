@@ -22,6 +22,19 @@ y축
 base = cv2.imread("combine_base.png")  # 224 * 244
 
 
+def combine(roi, target):
+    target_gray = cv2.cvtColor(target, cv2.COLOR_BGR2GRAY)
+    _, mask = cv2.threshold(target_gray, 10, 255, cv2.THRESH_BINARY)
+    mask_inv = cv2.bitwise_not(mask)
+
+    bg = cv2.bitwise_and(roi, roi, mask=mask)
+    fg = cv2.bitwise_and(target, target, mask=mask_inv)
+
+    dist = cv2.add(bg, fg)
+
+    return dist
+
+
 def double(mo_path, mo_start, ja_start):
     '''초성, 중성으로 구성된 음운 생성'''
     ja_dir = "glyph/cho"
@@ -45,6 +58,10 @@ def double(mo_path, mo_start, ja_start):
         ja_name = bytes(
             "\\u" + ja_unicode_str.lower(), "utf8").decode("unicode_escape")  # 자음 한글
 
+        mo_roi = base[mo_height_start:mo_height_start+mo_height,
+                      mo_width_start:mo_width_start+mo_width]
+        mo = combine(mo_roi, mo)
+
         base[mo_height_start:mo_height_start+mo_height,
              mo_width_start:mo_width_start+mo_width] = mo  # 모음 합성
 
@@ -54,6 +71,10 @@ def double(mo_path, mo_start, ja_start):
         # 자음 합성 시작점 설정
         ja_height_start = ja_start[0]
         ja_width_start = ja_start[1]
+
+        ja_roi = base[ja_height_start:ja_height_start+ja_height,
+                      ja_width_start:ja_width_start+ja_width]
+        ja = combine(ja_roi, ja)
 
         base[ja_height_start:ja_height_start+ja_height,
              ja_width_start:ja_width_start+ja_width] = ja  # 자음 합성
@@ -97,6 +118,10 @@ def triple(mo_path, mo_start, ja1_start, ja2_start):
             ja2_name = bytes(
                 "\\u" + ja2_unicode_str.lower(), "utf8").decode("unicode_escape")  # 종성 한글
 
+            mo_roi = base[mo_height_start:mo_height_start+mo_height,
+                          mo_width_start:mo_width_start+mo_width]
+            mo = combine(mo_roi, mo)
+
             base[mo_height_start:mo_height_start+mo_height,
                  mo_width_start:mo_width_start+mo_width] = mo  # 모음 합성
 
@@ -106,6 +131,10 @@ def triple(mo_path, mo_start, ja1_start, ja2_start):
             # 초성 합성 시작점 설정
             ja1_height_start = ja1_start[0]
             ja1_width_start = ja1_start[1]
+
+            ja1_roi = base[ja1_height_start:ja1_height_start+ja1_height,
+                           ja1_width_start:ja1_width_start+ja1_width]
+            ja1 = combine(ja1_roi, ja1)
 
             base[ja1_height_start:ja1_height_start+ja1_height,
                  ja1_width_start:ja1_width_start+ja1_width] = ja1  # 초성 합성
@@ -118,6 +147,10 @@ def triple(mo_path, mo_start, ja1_start, ja2_start):
             # 종성 합성 시작점 설정
             ja2_height_start = ja2_start[0]
             ja2_width_start = ja2_start[1]
+
+            ja2_roi = base[ja2_height_start:ja2_height_start+ja2_height,
+                           ja2_width_start:ja2_width_start+ja2_width]
+            ja2 = combine(ja2_roi, ja2)
 
             base[ja2_height_start:ja2_height_start+ja2_height,
                  ja2_width_start:ja2_width_start+ja2_width] = ja2  # 종성 합성
