@@ -16,7 +16,7 @@
 
 ### Install
 
-- [Python (3.7)](https://www.python.org/downloads/release/python-379)과 [Node.js (v12)](https://nodejs.org/download/release/v12.19.0/)를 설치합니다.
+- [Python (3.7)](https://www.python.org/downloads/release/python-379/)과 [Node.js (v12)](https://nodejs.org/download/release/v12.19.0/)를 설치합니다.
 
 - 해당 프로젝트를 `git clone https://github.com/bamcasa/new_A.Ifonts.git` 또는 압축 파일 다운로드를 통해서 다운받습니다.
 
