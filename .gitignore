@@ -1,4 +1,5 @@
 .vscode
+__pycache__
 
 crop_image
 Classified_image
@@ -10,3 +11,6 @@ node_modules
 svgs
 svg_font
 fonts
+
+A.Ifonts_executable
+
