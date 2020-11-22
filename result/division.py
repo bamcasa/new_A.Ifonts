@@ -67,9 +67,9 @@ for file in files:
 
     prediction = model.predict(data)
     print(f"{file}",lines[prediction.argmax()].strip(), prediction.max())
-    if prediction.max() >= 0.2:
+    if prediction.max() >= 0.3:
         if os.path.isdir(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}"):
-            original_image.save(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}/{file}")
+            original_image.save(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}/{prediction.max()}.jpg")
         else:
             os.mkdir(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}")
-            original_image.save(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}/{file}")
+            original_image.save(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}/{prediction.max()}.jpg")

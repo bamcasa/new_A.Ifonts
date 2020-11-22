@@ -14,8 +14,13 @@ y = 55
 for ja_dir in ja:
     if os.path.isdir(f"Formalization_image/{ja_dir}"):
         path, dirs, files = next(os.walk(f"Formalization_image/{ja_dir}"))
-        #print(f'Classified_image/{ja_dir}/{files[1]}')
-        ff = np.fromfile(f'Formalization_image/{ja_dir}/{files[0]}', np.uint8)
+        max = [0,0]
+        for file in files:
+            if int(file.split(".")[0]) >= max[0]:
+                max[0] = int(file.split(".")[0])
+                max[1] = file
+        #print(f'Formalization_image/{ja_dir}/{files[0]}')
+        ff = np.fromfile(f'Formalization_image/{ja_dir}/{max[1]}', np.uint8)
         img = cv2.imdecode(ff, cv2.IMREAD_UNCHANGED)
         img = cv2.resize(img, dsize=(85, 85), interpolation=cv2.INTER_AREA)
         height, width, channel = img.shape
@@ -29,8 +34,13 @@ x = 3
 for mo_dir in mo:
     if os.path.isdir(f"Formalization_image/{mo_dir}"):
         path, dirs, files = next(os.walk(f"Formalization_image/{mo_dir}"))
+        max = [0,0]
+        for file in files:
+            if int(file.split(".")[0]) >= max[0]:
+                max[0] = int(file.split(".")[0])
+                max[1] = file
         #print(f'Classified_image/{mo_dir}/{files[1]}')
-        ff = np.fromfile(f'Formalization_image/{mo_dir}/{files[0]}', np.uint8)
+        ff = np.fromfile(f'Formalization_image/{mo_dir}/{max[1]}', np.uint8)
         img = cv2.imdecode(ff, cv2.IMREAD_UNCHANGED)
         img = cv2.resize(img, dsize=(85, 85), interpolation=cv2.INTER_AREA)
         height, width, channel = img.shape

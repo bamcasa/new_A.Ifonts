@@ -46,6 +46,7 @@ for file in files:
     temp_result = np.zeros((height, width, channel), dtype=np.uint8)
 
     cv2.drawContours(temp_result, contours=contours, contourIdx=-1, color=(255, 255, 255))
+    #cv2.drawContours(img_ori, contours=contours, contourIdx=-1, color=(255, 255, 255))
 
     temp_result = np.zeros((height, width, channel), dtype=np.uint8)
 
@@ -54,7 +55,7 @@ for file in files:
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         cv2.rectangle(temp_result, pt1=(x, y), pt2=(x + w, y + h), color=(255, 255, 255), thickness=2)
-        # cv2.rectangle(img_ori, pt1=(x, y), pt2=(x + w, y + h), color=(255, 255, 255), thickness=2)
+        cv2.rectangle(img_ori, pt1=(x, y), pt2=(x + w, y + h), color=(225,225,25), thickness=2)
 
         # insert to dict
         contours_dict.append({
@@ -101,13 +102,13 @@ for file in files:
     for d in possible_contours:
         # cv2.drawContours(temp_result, d['contour'], -1, (255, 255, 255))
         # print(d['h'],"  ",d['w'])
-        if d['h'] >= avg_height and d['w'] >= avg_width:
+        if d['h'] >= avg_height - (avg_height*0.1) or d['w'] >= avg_width - (avg_width*0.1):
             dst.append(img_ori[d['y']:d['y'] + d['h'], d['x']:d['x'] + d['w']])
 
-    #cv2.imshow("img_ori", img_ori)
+    cv2.imshow("img_ori", img_ori)
     #cv2.imshow("temp_result", temp_result)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
     number = 1
 
