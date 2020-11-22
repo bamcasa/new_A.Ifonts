@@ -8,6 +8,9 @@ with open("model_labels.txt", "r", encoding="utf-8") as f:
     #for line in lines:
     #   print(line.strip())
 
+if not(os.path.isdir("Classified_image")):
+    os.makedirs("Classified_image")
+
 path, dirs, files = next(os.walk("crop_image"))
 
 # Disable scientific notation for clarity
@@ -25,8 +28,33 @@ for file in files:
     image = Image.open(f'crop_image/{file}')
     original_image = Image.open(f'crop_image/{file}')
 
-    size = (224, 224)
-    image = ImageOps.fit(image, size, Image.ANTIALIAS)
+    x, y = image.size
+
+    if x >= y:
+        new_size = x
+        x_offset = 0
+        y_offset = int((x - y) / 2)
+    elif y > x:
+        new_size = y
+        x_offset = int((y - x) / 2)
+        y_offset = 0
+
+    background_color = "white"
+    new_image = Image.new("RGBA", (new_size, new_size), background_color)
+    new_image.paste(image, (x_offset, y_offset))
+
+    new_image = ImageOps.fit(new_image, (204, 204), Image.ANTIALIAS)
+
+    base_image = Image.new("RGBA", (224, 224), background_color)
+    base_image.paste(new_image, (10, 10))
+
+    new_image = base_image
+
+    new_image = new_image.convert("RGB")
+
+    image = new_image
+
+    #image.show()
 
     #image.show()
     #original_image.show()
@@ -39,9 +67,9 @@ for file in files:
 
     prediction = model.predict(data)
     print(f"{file}",lines[prediction.argmax()].strip(), prediction.max())
-    if prediction.max() >= 0.97:
+    if prediction.max() >= 0.3:
         if os.path.isdir(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}"):
-            original_image.save(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}/{file}")
+            original_image.save(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}/{prediction.max()}.jpg")
         else:
             os.mkdir(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}")
-            original_image.save(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}/{file}")
+            original_image.save(f"Classified_image/{lines[prediction.argmax()].strip().split()[1]}/{prediction.max()}.jpg")

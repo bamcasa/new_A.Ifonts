@@ -37,6 +37,8 @@ for dir in dirs:
 
         new_image = base_image
 
+        new_image = new_image.convert("RGB")
+
         if not os.path.isdir(f"{output_directory}/{dir}"):
             os.mkdir(f"{output_directory}/{dir}")
 

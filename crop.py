@@ -5,23 +5,24 @@ import os
 if not(os.path.isdir("crop_image")):
     os.makedirs("crop_image")
 
-path, dirs, files = next(os.walk("KAKAO"))
+path, dirs, files = next(os.walk("INPUT_IMAGE"))
 print(len(files))
 
 
 for file in files:
-    img_ori = cv2.imread(f'KAKAO/{file}')
+    img_ori = cv2.imread(f'INPUT_IMAGE/{file}')
     #img_ori = cv2.resize(img_ori, dsize=(0, 0), fx=0.1, fy=0.1, interpolation=cv2.INTER_AREA)
-    #이미지가 클 경우에만 사용
+    # 이미지가 클 경우에만 사용
     height, width, channel = img_ori.shape
-    #print(height,width)
+    # print(height,width)
 
     gray = cv2.cvtColor(img_ori, cv2.COLOR_BGR2GRAY)
 
     structuringElement = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 
     imgTopHat = cv2.morphologyEx(gray, cv2.MORPH_TOPHAT, structuringElement)
-    imgBlackHat = cv2.morphologyEx(gray, cv2.MORPH_BLACKHAT, structuringElement)
+    imgBlackHat = cv2.morphologyEx(
+        gray, cv2.MORPH_BLACKHAT, structuringElement)
 
     imgGrayscalePlusTopHat = cv2.add(gray, imgTopHat)
     gray = cv2.subtract(imgGrayscalePlusTopHat, imgBlackHat)
@@ -45,7 +46,9 @@ for file in files:
 
     temp_result = np.zeros((height, width, channel), dtype=np.uint8)
 
-    cv2.drawContours(temp_result, contours=contours, contourIdx=-1, color=(255, 255, 255))
+    cv2.drawContours(temp_result, contours=contours,
+                     contourIdx=-1, color=(255, 255, 255))
+    #cv2.drawContours(img_ori, contours=contours, contourIdx=-1, color=(255, 255, 255))
 
     temp_result = np.zeros((height, width, channel), dtype=np.uint8)
 
@@ -53,8 +56,10 @@ for file in files:
 
     for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
-        cv2.rectangle(temp_result, pt1=(x, y), pt2=(x + w, y + h), color=(255, 255, 255), thickness=2)
-        # cv2.rectangle(img_ori, pt1=(x, y), pt2=(x + w, y + h), color=(255, 255, 255), thickness=2)
+        # cv2.rectangle(temp_result, pt1=(x, y), pt2=(
+        #     x + w, y + h), color=(255, 255, 255), thickness=2)
+        # cv2.rectangle(img_ori, pt1=(x, y), pt2=(x + w, y + h),
+        #               color=(225, 225, 25), thickness=2)
 
         # insert to dict
         contours_dict.append({
@@ -101,13 +106,13 @@ for file in files:
     for d in possible_contours:
         # cv2.drawContours(temp_result, d['contour'], -1, (255, 255, 255))
         # print(d['h'],"  ",d['w'])
-        if d['h'] >= avg_height and d['w'] >= avg_width:
+        if d['h'] >= avg_height - (avg_height*0.1) or d['w'] >= avg_width - (avg_width*0.1):
             dst.append(img_ori[d['y']:d['y'] + d['h'], d['x']:d['x'] + d['w']])
 
-    #cv2.imshow("img_ori", img_ori)
-    #cv2.imshow("temp_result", temp_result)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
+    # cv2.imshow("img_ori", img_ori)
+    # # cv2.imshow("temp_result", temp_result)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
 
     number = 1
 

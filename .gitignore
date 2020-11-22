@@ -2,17 +2,11 @@
 
 crop_image
 Classified_image
-test1
+Formalization_image
+glyph
+save_dir
 
-01_handwriting_sentence_images.zip
-
-result/crop_image
-result/Classified_image
-result/Formalization_image
-result/glyph
-result/save_dir
-
-result/node_modules
-result/svgs
-result/svg_font
-result/fonts
+node_modules
+svgs
+svg_font
+fonts
