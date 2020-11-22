@@ -12,11 +12,25 @@
 
 # Easy Usage
 
+### Install
+
+- 이곳에서 `A.Ifonts_executable.zip`을 다운받습니다.
+
+- 압축을 풀고 해당 폴더 안에 있는 `start.bat`을 실행시킵니다.
+
+### Prepare Handwriting
+
+- `INPUT_IMAGE` 폴더에 손글씨체 이미지를 준비합니다.
+
+### Execute
+
+- `start.bat`을 실행하여 폰트를 생성합니다.
+
 # Hard Usage
 
 ### Install
 
-- [Python (3.7)](https://www.python.org/downloads/release/python-379/)과 [Node.js (v12)](https://nodejs.org/download/release/v12.19.0/)를 설치합니다.
+- [Python (3.7)](https://www.python.org/ftp/python/3.7.9/python-3.7.9-amd64.exe)과 [Node.js (v12)](https://nodejs.org/dist/v12.19.1/node-v12.19.1-x64.msi)를 설치합니다.
 
 - 해당 프로젝트를 `git clone https://github.com/bamcasa/new_A.Ifonts.git` 또는 압축 파일 다운로드를 통해서 다운받습니다.
 
@@ -117,3 +131,29 @@ node ttf.js
 ```
 
 - `.png` 파일들을 `.ttf` 파일로 만들고 `fonts` 폴더에서 만들어진 폰트를 확인합니다.
+
+# Dev Memo
+
+### Prepare
+
+```sh
+pip install pyinstaller
+```
+
+```sh
+npm installl -g pkg
+```
+
+### Build
+
+- Python Build
+
+```sh
+python -m PyInstaller XXX.py
+```
+
+- Node.js Build
+
+```sh
+pkg ttf.js -t node12-win-x64
+```
