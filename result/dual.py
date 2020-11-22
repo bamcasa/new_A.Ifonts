@@ -117,7 +117,7 @@ make_dual_mo(mo_unicode_str="3150",
              mo1_start=(70, 95), mo2_start=(70, 120))  # ㅐ
 
 make_dual_mo(mo_unicode_str="3158",
-             mo1_start=(70, 50), mo2_start=(50, 110))  # ㅘ
+             mo1_start=(75, 50), mo2_start=(55, 110))  # ㅘ
 
 make_dual_mo(mo_unicode_str="3154",
              mo1_start=(75, 90), mo2_start=(70, 130))  # ㅔ
@@ -132,7 +132,7 @@ make_dual_mo(mo_unicode_str="315A",
              mo1_start=(55, 60), mo2_start=(60, 115))  # ㅚ
 
 make_dual_mo(mo_unicode_str="3162",
-             mo1_start=(55, 60), mo2_start=(50, 115))  # ㅢ
+             mo1_start=(65, 60), mo2_start=(60, 115))  # ㅢ
 
 make_dual_mo(mo_unicode_str="3159",
              mo1_start=(75, 55), mo2_start=(0, 0))  # ㅙ
