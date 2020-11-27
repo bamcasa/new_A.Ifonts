@@ -47,7 +47,14 @@ def double(mo_path, mo_start, ja_start):
     ja_list = os.listdir(ja_dir)  # 자음 이미지 목록
 
     mo = cv2.imread(mo_path)  # 모음 불러오기
-    mo_height, mo_width, _ = mo.shape  # 모음 픽셀 정보 저장
+
+    # 이미지가 없을 때 예외 처리
+    try:
+        mo_height, mo_width, _ = mo.shape  # 모음 픽셀 정보 저장
+
+    except AttributeError as err:
+        print("이미지의 픽셀 정보를 불러올 수 없습니다 ->", err)
+        return
 
     # 모음 합성 시작점 설정
     mo_height_start = mo_start[0]
@@ -102,7 +109,14 @@ def triple(mo_path, mo_start, ja1_start, ja2_start):
     ja2_list = os.listdir(ja2_dir)  # 종성 이미지 목록
 
     mo = cv2.imread(mo_path)  # 모음 불러오기
-    mo_height, mo_width, _ = mo.shape  # 모음 픽셀 정보 저장
+
+    # 이미지가 없을 때 예외 처리
+    try:
+        mo_height, mo_width, _ = mo.shape  # 모음 픽셀 정보 저장
+
+    except AttributeError as err:
+        print("이미지의 픽셀 정보를 불러올 수 없습니다 ->", err)
+        return
 
     # 모음 합성 시작점 설정
     mo_height_start = mo_start[0]

@@ -73,9 +73,24 @@ def make_dual_mo(mo_unicode_str, mo1_start, mo2_start):
     mo2_path = f"glyph/mo/{mo2_unicode_str}.png"
 
     mo1 = cv2.imread(mo1_path)  # 모음 1 불러오기
-    mo1_height, mo1_width, _ = mo1.shape  # 모음 1 픽셀 정보 저장
+
+    # 이미지가 없을 때 예외 처리
+    try:
+        mo1_height, mo1_width, _ = mo1.shape  # 모음 1 픽셀 정보 저장
+
+    except AttributeError as err:
+        print("이미지의 픽셀 정보를 불러올 수 없습니다 ->", err)
+        return
+
     mo2 = cv2.imread(mo2_path)  # 모음 2 불러오기
-    mo2_height, mo2_width, _ = mo2.shape  # 모음 2 픽셀 정보 저장
+
+    # 이미지가 없을 때 예외 처리
+    try:
+        mo2_height, mo2_width, _ = mo2.shape  # 모음 2 픽셀 정보 저장
+
+    except AttributeError as err:
+        print("이미지의 픽셀 정보를 불러올 수 없습니다 ->", err)
+        return
 
     # 모음 합성 시작점 설정
     mo1_height_start = mo1_start[0]
