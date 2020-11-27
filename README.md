@@ -149,8 +149,17 @@ npm installl -g pkg
 - Python Build
 
 ```sh
-python -m PyInstaller XXX.py
+python -m PyInstaller -F crop.py
+python -m PyInstaller -F convert_grayscale.py
+python -m PyInstaller -F division.py
+python -m PyInstaller -F Formalization.py
+python -m PyInstaller -F covent_name.py
+python -m PyInstaller -F invisible.py
+python -m PyInstaller -F dual.py
+python -m PyInstaller -F combine.py
 ```
+
+> python -m PyInstaller -F crop.py & python -m PyInstaller -F convert_grayscale.py & python -m PyInstaller -F division.py & python -m PyInstaller -F Formalization.py & python -m PyInstaller -F covent_name.py & python -m PyInstaller -F invisible.py & python -m PyInstaller -F dual.py & python -m PyInstaller -F combine.py
 
 - Node.js Build
 
