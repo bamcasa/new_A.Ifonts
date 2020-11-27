@@ -6,6 +6,10 @@ import numpy as np
 모음을 결합하여 이중모음 만듦
 """
 
+print()
+print("Start making dual mo...")
+print()
+
 dual_base = cv2.imread("dual_base.png")  # 224 * 244
 
 
@@ -64,6 +68,8 @@ def make_dual_mo(mo_unicode_str, mo1_start, mo2_start):
         mo1_name = "ㅜ"
         mo2_name = "ㅣ"
 
+    print(mo1_name, mo2_name)
+
     mo1_unicode_str = str(mo1_name.encode("unicode_escape")).replace(
         "b'\\\\u", "").replace("'", "").upper()
     mo2_unicode_str = str(mo2_name.encode("unicode_escape")).replace(
@@ -119,8 +125,6 @@ def make_dual_mo(mo_unicode_str, mo1_start, mo2_start):
 
     dual_base[:, :] = 255  # 베이스 초기화
 
-    print(mo1_name, mo2_name)
-
 
 make_dual_mo(mo_unicode_str="3152",
              mo1_start=(70, 105), mo2_start=(70, 120))  # ㅒ
@@ -154,3 +158,7 @@ make_dual_mo(mo_unicode_str="3159",
 
 make_dual_mo(mo_unicode_str="315E",
              mo1_start=(75, 50), mo2_start=(0, 0))  # ㅞ
+
+print()
+print("Done making dual mo!")
+print()

@@ -19,6 +19,10 @@ XX_start 인자의 경우 (y좌표, x좌표) 의 형태로 넣어야하며
 y축
 """
 
+print()
+print("Start combining...")
+print()
+
 base = cv2.imread("combine_base.png")  # 224 * 244
 
 
@@ -64,6 +68,8 @@ def double(mo_path, mo_start, ja_start):
         ja_unicode_str = ja_filename[:4]  # 자음 유니코드 값 (4자리)
         ja_name = bytes(
             "\\u" + ja_unicode_str.lower(), "utf8").decode("unicode_escape")  # 자음 한글
+
+        print(mo_name, ja_name)
 
         mo_roi = base[mo_height_start:mo_height_start+mo_height,
                       mo_width_start:mo_width_start+mo_width]
@@ -131,6 +137,8 @@ def triple(mo_path, mo_start, ja1_start, ja2_start):
             ja2_unicode_str = ja2_filename[:4]  # 종성 유니코드 값 (4자리)
             ja2_name = bytes(
                 "\\u" + ja2_unicode_str.lower(), "utf8").decode("unicode_escape")  # 종성 한글
+
+            print(mo_name, ja1_name, ja2_name)
 
             mo_roi = base[mo_height_start:mo_height_start+mo_height,
                           mo_width_start:mo_width_start+mo_width]
@@ -327,3 +335,7 @@ triple(mo_path="glyph/mo/3154.png",
 
 triple(mo_path="glyph/mo/315F.png",
        mo_start=(0, 0), ja1_start=(30, 70), ja2_start=(125, 80))  # ㅟ
+
+print()
+print("Done combining!")
+print()
