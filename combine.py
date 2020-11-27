@@ -69,8 +69,6 @@ def double(mo_path, mo_start, ja_start):
         ja_name = bytes(
             "\\u" + ja_unicode_str.lower(), "utf8").decode("unicode_escape")  # 자음 한글
 
-        print(mo_name, ja_name)
-
         mo_roi = base[mo_height_start:mo_height_start+mo_height,
                       mo_width_start:mo_width_start+mo_width]
         mo = combine(mo_roi, mo)
@@ -99,6 +97,7 @@ def double(mo_path, mo_start, ja_start):
         cv2.imwrite(f"save_dir/{glyph_unicode_str}.png", base)
 
         base[:, :] = 255  # 베이스 초기화
+        print(ja_name, mo_name, "->", glyph_name)
 
 
 def triple(mo_path, mo_start, ja1_start, ja2_start):
@@ -137,8 +136,6 @@ def triple(mo_path, mo_start, ja1_start, ja2_start):
             ja2_unicode_str = ja2_filename[:4]  # 종성 유니코드 값 (4자리)
             ja2_name = bytes(
                 "\\u" + ja2_unicode_str.lower(), "utf8").decode("unicode_escape")  # 종성 한글
-
-            print(mo_name, ja1_name, ja2_name)
 
             mo_roi = base[mo_height_start:mo_height_start+mo_height,
                           mo_width_start:mo_width_start+mo_width]
@@ -184,6 +181,8 @@ def triple(mo_path, mo_start, ja1_start, ja2_start):
             cv2.imwrite(f"save_dir/{glyph_unicode_str}.png", base)
 
             base[:, :] = 255  # 베이스 초기화
+
+            print(ja1_name, mo_name, ja2_name, "->", glyph_name)
 
 
 def get_unicode_int(ja1_name, mo_name, ja2_name=""):
