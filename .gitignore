@@ -14,3 +14,7 @@ fonts
 
 A.Ifonts_executable
 A.Ifonts_executable.zip
+
+build
+dist
+*.spec
