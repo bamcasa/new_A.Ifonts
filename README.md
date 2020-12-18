@@ -14,7 +14,7 @@
 
 ### Install
 
-- [이곳](https://drive.google.com/file/d/1p61EpwAZgZmGEQl3JfYlIro0_HqfaZX7/view?usp=sharing)에서 `A.Ifonts_executable.zip`을 다운받습니다.
+- [이곳](https://drive.google.com/file/d/1KUS_Rm2JbZqkj1I5w_oNucLUFQduzcEj/view?usp=sharing)에서 `A.Ifonts_executable.zip`을 다운받습니다.
 
 - 압축을 풀고 해당 폴더 안에 있는 `start.bat`을 실행시킵니다.
 
